@@ -241,17 +241,7 @@ void print_many_per_line(MyList *list)
 
 void help()
 {
-	FILE *fp = fopen("a.txt","r");
-	if (fp)
-	{
-		char b[500];
-		while(!feof(fp))
-		{
-			fgets(b,sizeof(b),fp);	
-			printf("%s",b);
-		}
-		fclose(fp);
-	}
+	system("ls --help");
 
 }
 
