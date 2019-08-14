@@ -636,15 +636,12 @@ void printLS(MyList *list, char dirname[])
 {
 
 
-	//	if(sort_method == S_DEFULT)
-	myListQuickSort(list, sortMethod_DEFULT);
-	//	myListInsertSort(list, sortMethod_DEFULT);
-	if(sort_method == S_S)
+	if(sort_method == S_DEFULT)
+		myListQuickSort(list, sortMethod_DEFULT);
+	else if(sort_method == S_S)
 		myListQuickSort(list, sortMethod_S);
-	//	myListInsertSort(list, sortMethod_S);
 	else if(sort_method == S_t)
 		myListQuickSort(list, sortMethod_t);
-	//	myListInsertSort(list,sortMethod_t);
 	if(LS_r == 1)
 		myListReverse(list);
 	if(LS_R ==1)
@@ -724,18 +721,20 @@ void do_ls1(char dirname[], MyList *list)
 {  
 	DIR* dir_ptr;  
 	indexdols1++ ;
-	if(LS_d == 1)
-	{
-		printLS_d(dirname);
-		return ;
-	}
-	list = createMyList();
+
 	if ((dir_ptr = opendir(dirname)) == NULL)  
 	{  
 		fprintf(stderr, "ls2: cannot open %s \n", dirname);  
 	}  
 	else  
 	{    
+		if(LS_d == 1)
+		{
+			printLS_d(dirname);
+			closedir(dir_ptr);  
+			return ;
+		}
+		list = createMyList();
 
 		char *dirs[100];  
 		int dir_count = 0;  
